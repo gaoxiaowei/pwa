@@ -16,5 +16,6 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ]
+    ],
+    "serviceworker": "/nonexistent-service-worker.js"  // 请求不存在的 Service Worker 脚本
 }

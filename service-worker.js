@@ -38,15 +38,14 @@ self.addEventListener('fetch', event => {
 
 function fetchAndCache(request) {
     return fetch(request).then((response) => {
-        // return fetch(request)
-        // .then(response => {
-        //     if (!response.ok) {
-        //         throw new Error('Fetch failed');
-        //     }
-        //     return response;
-        // })
-        // .catch(() => caches.match(request));
-        var response = new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' })
+        return fetch(request)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Fetch failed');
+            }
+            return response;
+        })
+        .catch(() => caches.match(request));
         return response;
     });
 }
