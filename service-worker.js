@@ -30,11 +30,11 @@ self.addEventListener('activate', event => {
 });
 
 // Fetch event
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        fetchAndCache(event.request)
-    );
-});
+// self.addEventListener('fetch', event => {
+//     event.respondWith(
+//         fetchAndCache(event.request)
+//     );
+// });
 
 // self.addEventListener('fetch', event => {
 //     event.respondWith(
