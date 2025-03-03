@@ -13,7 +13,7 @@
     <button onclick="forceUpdate()">Update Cache</button>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('https://htmlpreview.github.io/?https://github.com/gaoxiaowei/pwa/blob/main/service-worker.js')
+            navigator.serviceWorker.register('service-worker.js')
                 .then(reg => {
                     document.getElementById('status').textContent = 'Service Worker Registered ✅';
                 })
