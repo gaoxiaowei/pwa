@@ -30,20 +30,37 @@ self.addEventListener('activate', event => {
 });
 
 // Fetch event
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        fetchAndCache(event.request)
+    );
+});
+
 // self.addEventListener('fetch', event => {
 //     event.respondWith(
-//         fetchAndCache(event.request)
+//         new Promise((resolve, reject) => {
+//             setTimeout(() => {
+//                 reject(new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' }));
+//             }, 2000); // 设置 2 秒超时模拟 504 错误
+//         })
 //     );
 // });
+
 self.addEventListener('fetch', event => {
     event.respondWith(
         new Promise((resolve, reject) => {
+            // 模拟网络延迟，导致超时
             setTimeout(() => {
-                reject(new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' }));
-            }, 2000); // 设置 2 秒超时模拟 504 错误
+                const response = new Response('Gateway Timeout', {
+                    status: 504,
+                    statusText: 'Response not Ok (fetchAndCacheOnce): request for https://gaoxiaowei.github.io/pwa/index.html returned response 504 Gateway Timeout'
+                });
+                resolve(response);  // 返回自定义的 504 响应
+            }, 1000);  // 设置延时，1秒后返回响应模拟超时
         })
     );
 });
+
 
 function fetchAndCache(request) {
     return fetch(request).then((response) => {
