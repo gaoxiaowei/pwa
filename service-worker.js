@@ -31,13 +31,15 @@ self.addEventListener('activate', event => {
 
 // Fetch event
 self.addEventListener('fetch', event => {
-    event.respondWith(fetchAndCache(event.request);
+    event.respondWith(
+        fetchAndCache(event.request)
     );
 });
 
 function fetchAndCache(request) {
     return fetch(request).then((response) => {
-        var response = new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' })
+        var response = fetch(event.request).catch(() => caches.match(event.request))
+        //var response = new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' })
         return response;
     });
 }
