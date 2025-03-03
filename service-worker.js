@@ -40,7 +40,7 @@ self.addEventListener('fetch', event => {
         new Promise((resolve, reject) => {
             setTimeout(() => {
                 reject(new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' }));
-            }, 5000); // 设置 5 秒超时模拟 504 错误
+            }, 2000); // 设置 2 秒超时模拟 504 错误
         })
     );
 });
