@@ -30,9 +30,18 @@ self.addEventListener('activate', event => {
 });
 
 // Fetch event
+// self.addEventListener('fetch', event => {
+//     event.respondWith(
+//         fetchAndCache(event.request)
+//     );
+// });
 self.addEventListener('fetch', event => {
     event.respondWith(
-        fetchAndCache(event.request)
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject(new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' }));
+            }, 5000); // 设置 5 秒超时模拟 504 错误
+        })
     );
 });
 
