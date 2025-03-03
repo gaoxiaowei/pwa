@@ -1,9 +1,9 @@
 const CACHE_NAME = 'pwa-cache-v1';
 const CACHE_ASSETS = [
-    '/',
-    '/index.html',
-    '/styles.css',
-    '/manifest.json'
+    './',
+    './index.html',
+    './styles.css',
+    './manifest.json'
 ];
 
 // Install event
