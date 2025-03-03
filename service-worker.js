@@ -40,9 +40,9 @@ function fetchAndCache(request) {
     return fetch(request).then((response) => {
         return fetch(request)
         .then(response => {
-            // if (!response.ok) {
+            if (!response.ok) {
                 throw new Error('Fetch failed');
-            // }
+            }
             return response;
         })
         .catch(() => caches.match(request));
