@@ -46,30 +46,25 @@ self.addEventListener('activate', event => {
 //     );
 // });
 
-// self.addEventListener('fetch', event => {
-//     event.respondWith(
-//         new Promise((resolve, reject) => {
-//             // 模拟网络延迟，导致超时
-//             setTimeout(() => {
-//                 const response = new Response('Gateway Timeout', {
-//                     status: 504,
-//                     statusText: 'Response not Ok (fetchAndCacheOnce): request for https://gaoxiaowei.github.io/pwa/index.html returned response 504 Gateway Timeout'
-//                 });
-//                 resolve(response);  // 返回自定义的 504 响应
-//             }, 1000);  // 设置延时，1秒后返回响应模拟超时
-//         })
-//     );
-// });
-
 self.addEventListener('fetch', event => {
     event.respondWith(
-        new Response(JSON.stringify({
-            error: 'Gateway Timeout',
-            message: 'Response not Ok (fetchAndCacheOnce): request for ' + event.request.url + ' returned response 504 Gateway Timeout'
-        }), {
-            status: 504,
-            statusText: 'Gateway Timeout', // 这部分通常不会被 NSError 直接打印
-            headers: { 'Content-Type': 'application/json' }
+        new Promise((resolve, reject) => {
+            // 模拟网络延迟，导致超时
+            setTimeout(() => {
+                // const response = new Response('Gateway Timeout', {
+                //     status: 504,
+                //     statusText: 'Response not Ok (fetchAndCacheOnce): request for https://gaoxiaowei.github.io/pwa/index.html returned response 504 Gateway Timeout'
+                // });
+                  const response = new Response(JSON.stringify({
+                        error: 'Gateway Timeout',
+                        message: 'Response not Ok (fetchAndCacheOnce): request for ' + event.request.url + ' returned response 504 Gateway Timeout'
+                  }), {
+                        status: 504,
+                        statusText: 'Gateway Timeout', // 这部分通常不会被 NSError 直接打印
+                        headers: { 'Content-Type': 'application/json' });
+        })
+                resolve(response);  // 返回自定义的 504 响应
+            }, 1000);  // 设置延时，1秒后返回响应模拟超时
         })
     );
 });
