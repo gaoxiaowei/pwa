@@ -30,36 +30,43 @@ self.addEventListener('activate', event => {
 });
 
 // Fetch event
-// self.addEventListener('fetch', event => {
-//     event.respondWith(
-//         fetchAndCache(event.request)
-//     );
-// });
-
 self.addEventListener('fetch', event => {
     event.respondWith(
-        new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // reject(new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' }));
-                reject(new Error('Response not Ok (fetchAndCacheOnce): request for ' + event.request.url + ' returned response 504 Gateway Timeout'));
-            }, 2000); // 设置 2 秒超时模拟 504 错误
-        })
+        fetchAndCache(event.request)
     );
 });
 
-
+// self.addEventListener('fetch', event => {
+//     event.respondWith(
+//         new Promise((resolve, reject) => {
+//             setTimeout(() => {
+//                 // reject(new Response('Gateway Timeout', { status: 504, statusText: 'Gateway Timeout' }));
+//                 reject(new Error('Response not Ok (fetchAndCacheOnce): request for ' + event.request.url + ' returned response 504 Gateway Timeout'));
+//             }, 2000); // 设置 2 秒超时模拟 504 错误
+//         })
+//     );
+// });
 
 
 function fetchAndCache(request) {
     return fetch(request).then((response) => {
         return fetch(request)
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Fetch failed');
-            }
-            return response;
-        })
-        .catch(() => caches.match(request));
-        return response;
+         var response = fetch(event.request).catch(() => caches.match(event.request))
+         return response;
     });
 }
+
+// function fetchAndCache(request) {
+//     return fetch(request).then((response) => {
+//         return fetch(request)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Fetch failed');
+//             }
+//             return response;
+//         })
+//         .catch(() => caches.match(request));
+//         return response;
+//     });
+// }
